@@ -14,7 +14,7 @@ const sendContactMessage = async (req, res) => {
       return res.status(500).json({ message: "Email service not configured" });
     }
 
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
       secure: false,
