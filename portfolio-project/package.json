@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-project",
+  "version": "1.0.0",
+  "description": "Full-stack portfolio website with React frontend and Node.js backend",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix portfolio-ui\" \"npm run dev --prefix portfolio-backend\"",
+    "frontend:dev": "npm run dev --prefix portfolio-ui",
+    "backend:dev": "npm run dev --prefix portfolio-backend",
+    "build": "npm run build --prefix portfolio-ui"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
