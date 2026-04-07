@@ -56,13 +56,15 @@ export default function Contact() {
       const data = await res.json();
 
       if (res.ok) {
-        setStatus("Message sent successfully");
+        setStatus("✓ Message sent successfully! I'll get back to you soon.");
         setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus(""), 5000);
       } else {
-        setStatus(data.message || "Failed to send message");
+        setStatus(data.message || "Failed to send message. Please try again.");
       }
-    } catch {
-      setStatus("Server error");
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setStatus("Unable to connect to server. Please check your internet connection or try again later.");
     }
   };
 
