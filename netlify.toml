@@ -1,7 +1,7 @@
 [build]
-  base = "portfolio-ui"
+  base = "portfolio-project/portfolio-ui"
   command = "npm run build"
-  publish = "dist"
+  publish = "portfolio-project/portfolio-ui/dist"
 
 [build.environment]
   NODE_VERSION = "20"
