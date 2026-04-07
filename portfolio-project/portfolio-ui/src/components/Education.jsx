@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 export default function Education() {
   const [items, setItems] = useState([]);
@@ -11,7 +12,7 @@ export default function Education() {
       try {
         const response = await fetch(`${API_BASE_URL}/api/educations`);
 
-        if (!res.ok) {
+        if (!response.ok) {
           throw new Error("Failed to fetch education");
         }
 
