@@ -13,7 +13,7 @@ export default function Contact() {
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/social-links");
+        const res = await fetch(`${API_BASE_URL}/api/social-links`);
 
         if (!res.ok) {
           throw new Error("Failed to fetch social links");
@@ -21,9 +21,8 @@ export default function Contact() {
 
         const data = await res.json();
         setSocialLinks(data);
-      } catch (error) {
-        console.error("Error fetching social links:", error);
-
+      } catch {
+        // Error fetching social links, using fallback data
         setSocialLinks([
           { _id: "1", name: "LinkedIn", icon: "in", url: "#" },
           { _id: "2", name: "GitHub", icon: "gh", url: "#" },
@@ -45,7 +44,7 @@ export default function Contact() {
     setStatus("Sending...");
 
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
+      const res = await fetch(`${API_BASE_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -61,7 +60,7 @@ export default function Contact() {
       } else {
         setStatus(data.message || "Failed to send message");
       }
-    } catch (error) {
+    } catch {
       setStatus("Server error");
     }
   };

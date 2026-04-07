@@ -17,8 +17,8 @@ export default function EducationPage() {
 
         const data = await res.json();
         setItems(data);
-      } catch (error) {
-        console.error("Error fetching education:", error);
+      } catch {
+        // Error fetching education
       } finally {
         setLoading(false);
       }

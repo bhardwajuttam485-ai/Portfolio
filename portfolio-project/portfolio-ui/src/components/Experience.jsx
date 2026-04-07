@@ -9,7 +9,7 @@ export default function Experience() {
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/experiences");
+        const response = await fetch(`${API_BASE_URL}/api/experiences`);
 
         if (!res.ok) {
           throw new Error("Failed to fetch experiences");
@@ -17,9 +17,8 @@ export default function Experience() {
 
         const data = await res.json();
         setItems(data);
-      } catch (error) {
-        console.error("Error fetching experiences:", error);
-
+      } catch {
+        // Error fetching experiences, using fallback data
         setItems([
           {
             _id: "1",

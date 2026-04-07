@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 export default function Skills() {
   const [skills, setSkills] = useState([]);
@@ -9,7 +10,7 @@ export default function Skills() {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/skills");
+        const response = await fetch(`${API_BASE_URL}/api/skills`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch skills");
@@ -18,7 +19,7 @@ export default function Skills() {
         const data = await response.json();
         setSkills(data);
       } catch (err) {
-        console.error("Error fetching skills:", err);
+        // Error fetching skills
         setError(err.message);
 
         setSkills([
@@ -50,7 +51,7 @@ export default function Skills() {
   }, []);
 
   if (loading) return <p>Loading skills...</p>;
-  if (error) console.log(error);
+  if (error) return <p>Error loading skills</p>;
 
   return (
     <section className="section panel" id="skills">

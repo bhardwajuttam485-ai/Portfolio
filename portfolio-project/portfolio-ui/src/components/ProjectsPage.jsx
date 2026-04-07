@@ -1,7 +1,8 @@
 ﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
-export default function ProjectsPage() {
+export default function ProjectsPage () {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +11,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/projects');
+        const response = await fetch(`${API_BASE_URL}/api/projects`);
         if (!response.ok) {
           throw new Error(`Failed to fetch projects: ${response.status} ${response.statusText}`);
         }
@@ -18,7 +19,7 @@ export default function ProjectsPage() {
         const data = await response.json();
         setProjects(data);
       } catch (err) {
-        console.error('Error fetching projects:', err);
+        // Error fetching projects
         setError(err.message);
         setProjects([]);
       } finally {

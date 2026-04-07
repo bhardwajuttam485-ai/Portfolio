@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { API_BASE_URL } from "../config";
+
 
 export default function ProjectDetails() {
   const { slug } = useParams();
@@ -11,7 +13,7 @@ export default function ProjectDetails() {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/projects/${slug}`);
+        const res = await fetch(`${API_BASE_URL}/api/projects/${slug}`);
 
         if (!res.ok) {
           throw new Error("Project not found");
@@ -19,8 +21,8 @@ export default function ProjectDetails() {
 
         const data = await res.json();
         setProject(data);
-      } catch (error) {
-        console.error("Error fetching project details:", error);
+      } catch {
+        // Error fetching project details
       } finally {
         setLoading(false);
       }

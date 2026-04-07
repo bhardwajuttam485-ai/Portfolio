@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
+
 
 export default function SkillsPage() {
   const [skills, setSkills] = useState([]);
@@ -10,7 +12,7 @@ export default function SkillsPage() {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/skills');
+        const response = await fetch(`${API_BASE_URL}/api/skills`);
         if (!response.ok) {
           throw new Error(`Failed to fetch skills: ${response.status} ${response.statusText}`);
         }
@@ -18,7 +20,7 @@ export default function SkillsPage() {
         const data = await response.json();
         setSkills(data);
       } catch (err) {
-        console.error('Error fetching skills:', err);
+        // Error fetching skills
         setError(err.message);
         setSkills([]);
       } finally {

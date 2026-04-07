@@ -17,9 +17,8 @@ export default function Education() {
 
         const data = await res.json();
         setItems(data);
-      } catch (error) {
-        console.error("Error fetching education:", error);
-
+      } catch {
+        // Error fetching education, using fallback data
         setItems([
           {
             _id: "1",

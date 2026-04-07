@@ -17,8 +17,8 @@ export default function ExperiencePage() {
 
         const data = await res.json();
         setItems(data);
-      } catch (error) {
-        console.error("Error fetching experiences:", error);
+      } catch {
+        // Error fetching experiences
       } finally {
         setLoading(false);
       }
