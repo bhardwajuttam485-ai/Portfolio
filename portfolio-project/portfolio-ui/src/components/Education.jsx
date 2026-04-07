@@ -9,7 +9,7 @@ export default function Education() {
   useEffect(() => {
     const fetchEducations = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/educations");
+        const response = await fetch(`${API_BASE_URL}/api/educations`);
 
         if (!res.ok) {
           throw new Error("Failed to fetch education");
