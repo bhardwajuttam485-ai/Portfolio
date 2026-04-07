@@ -1,5 +1,4 @@
 [build]
-  base = "portfolio-project/portfolio-ui"
   command = "npm run build"
   publish = "dist"
 
