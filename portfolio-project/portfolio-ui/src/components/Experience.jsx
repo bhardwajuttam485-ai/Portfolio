@@ -16,7 +16,7 @@ export default function Experience() {
           throw new Error("Failed to fetch experiences");
         }
 
-        const data = await res.json();
+        const data = await response.json();
         setItems(data);
       } catch {
         // Error fetching experiences, using fallback data
