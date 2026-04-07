@@ -19,6 +19,11 @@ if (!process.env.MONGO_URI) {
   process.exit(1);
 }
 
+// Check email configuration (only log warning, don't exit)
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.RECEIVER_EMAIL) {
+  console.warn('Warning: Email environment variables not set. Contact form will not work.');
+}
+
 const app = express();
 
 app.use(cors());
