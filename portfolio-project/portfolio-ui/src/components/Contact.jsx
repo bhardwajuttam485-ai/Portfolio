@@ -46,9 +46,7 @@ export default function Contact() {
 
     try {
       // Use Netlify function in production, backend in development
-      const endpoint = import.meta.env.MODE === 'production' 
-        ? "/.netlify/functions/contact" 
-        : `${API_BASE_URL}/api/contact`;
+      const endpoint = `${API_BASE_URL}/api/contact`;
 
       const res = await fetch(endpoint, {
         method: "POST",

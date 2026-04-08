@@ -11,30 +11,40 @@ const experienceRoutes = require("./routes/experienceRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const socialLinkRoutes = require("./routes/socialLinkRoutes");
 
-// Load environment variables from the correct path
-dotenv.config({ path: path.join(__dirname, '.env') });
+dotenv.config({ path: path.join(__dirname, ".env") });
 
 if (!process.env.MONGO_URI) {
-  console.error('Missing MONGO_URI in backend/.env. Please set your MongoDB Atlas connection string.');
+  console.error("Missing MONGO_URI in backend/.env");
   process.exit(1);
-}
-
-// Check email configuration (only log warning, don't exit)
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.RECEIVER_EMAIL) {
-  console.warn('Warning: Email environment variables not set. Contact form will not work.');
 }
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
+const allowedOrigins = [
+  "http://localhost:5174",
+  "https://portfolio-uttam.netlify.app",
+];
 
-app.use(cors({
-  origin: "https://portfolio-uttam.netlify.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".netlify.app")
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 connectDB();
 
