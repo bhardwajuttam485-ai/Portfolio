@@ -29,6 +29,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+app.use(cors({
+  origin: "https://portfolio-uttam.netlify.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 connectDB();
 
 app.get("/", (req, res) => {

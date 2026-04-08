@@ -202,101 +202,45 @@ If you want to use local MongoDB instead:
 - **PUT** `http://localhost:5000/api/social-links/:id` - Update social link
 - **DELETE** `http://localhost:5000/api/social-links/:id` - Delete social link
 
-### Contact Endpoints
-- **POST** `http://localhost:5000/api/contact` - Send contact message
+## 📞 Contact Form Setup
+
+The contact form sends emails via Gmail SMTP using Nodemailer in Netlify serverless functions.
+
+### Current Configuration
+- **SMTP Host**: smtp.gmail.com
+- **Port**: 587 (TLS)
+- **Email**: bhardwajuttam485@gmail.com
+- **App Password**: Configured in Netlify environment variables
+
+### To Set Up Email in Netlify:
+1. Generate Gmail App Password: https://myaccount.google.com/apppasswords
+2. In Netlify dashboard → Site settings → Environment variables, add:
+   - `EMAIL_USER`: your-email@gmail.com
+   - `EMAIL_PASS`: your-16-character-app-password
+   - `RECEIVER_EMAIL`: your-email@gmail.com
+
+### Testing Email
+Send a test message via the contact form on your live site.
 
 ---
 
-## 💻 Using API with cURL (Alternative to Compass)
+## 🚀 Deployment Setup
 
-### Add a Project via API
-```bash
-curl -X POST http://localhost:5000/api/projects \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Your Project Name",
-    "desc": "Project description here",
-    "tags": ["Tag1", "Tag2"],
-    "image": ""
-  }'
-```
+### Frontend (Netlify)
+1. Connect your GitHub repository to Netlify
+2. Set build settings:
+   - **Base directory**: `portfolio-project/portfolio-ui`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist`
+   - **Functions directory**: `portfolio-project/netlify/functions`
+3. Add environment variables in Netlify dashboard:
+   - `EMAIL_USER`: your-gmail@gmail.com
+   - `EMAIL_PASS`: your-gmail-app-password
+   - `RECEIVER_EMAIL`: your-gmail@gmail.com
+   - `VITE_API_BASE_URL`: https://portfolio-backend-fsu2.onrender.com
 
-### Add a Skill via API
-```bash
-curl -X POST http://localhost:5000/api/skills \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Skill Name",
-    "text": "Skill description",
-    "icon": "🔥"
-  }'
-```
-
-### Fetch All Projects
-```bash
-curl http://localhost:5000/api/projects
-```
-
-### Fetch All Skills
-```bash
-curl http://localhost:5000/api/skills
-```
-
----
-
-## 📱 Responsive Design Features Added
-
-### Mobile-First Approach
-✅ Fluid typography using clamp() function
-✅ Flexible grid layouts with auto-fit
-✅ Touch-friendly button sizes (min 44px height)
-✅ Optimized spacing for all screen sizes
-
-### Breakpoints
-- **Desktop**: Full layout (1100px+)
-- **Tablet**: 2-column grid (760px - 1100px)
-- **Mobile**: Single column (480px - 760px)
-- **Small Mobile**: Extra small screens (<480px)
-
-### Key Responsive Features
-- Navigation adapts for mobile
-- Hero section stacks vertically on mobile
-- Project and skill cards are responsive
-- Buttons full-width on small screens
-- Text scales proportionally
-- Contact form optimized for mobile input
-
----
-
-## 🔧 Troubleshooting
-
-### MongoDB Connection Issues
-**Problem**: "MongoDB disconnected" or "Failed to connect"
-**Solution**:
-1. Check MongoDB Atlas dashboard for cluster status
-2. Verify MONGO_URI in `portfolio-backend/.env` file
-3. Ensure IP whitelist includes your current IP (0.0.0.0/0 for testing)
-4. Check network connectivity to MongoDB Atlas
-
-**For Local MongoDB (if using instead):**
-1. Ensure MongoDB is running: `mongod` in terminal
-2. Check if port 27017 is accessible
-3. Update MONGO_URI to `mongodb://127.0.0.1:27017/portfolioDB`
-
-### Frontend not showing data
-**Problem**: "Data not loading in frontend"
-**Solution**:
-1. Check if backend is running: `http://localhost:5000/api/projects`
-2. Verify data exists in MongoDB Compass
-3. Check browser console for errors (F12)
-4. Clear cache and reload (Ctrl+Shift+R)
-
-### Port Already in Use
-**Problem**: "Port 5000 is already in use"
-**Solution**:
-```bash
-taskkill /IM node.exe /F
-```
+### Backend (Render)
+The backend is deployed on Render at: https://portfolio-backend-fsu2.onrender.com
 
 ---
 
@@ -391,7 +335,9 @@ The contact form sends emails via Gmail SMTP using Nodemailer.
    - Common alternatives: Outlook, Yahoo, custom SMTP
 
 ### Testing Email
-Send a test message via the contact form or use this cURL command:
+Send a test message via the contact form on your live site (Netlify function).
+
+For local testing of the backend (if running):
 ```bash
 curl -X POST http://localhost:5000/api/contact \
   -H "Content-Type: application/json" \
@@ -400,6 +346,48 @@ curl -X POST http://localhost:5000/api/contact \
     "email": "test@example.com",
     "message": "This is a test message"
   }'
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Email Not Working
+**Problem**: "Email service not configured" or emails not sending
+**Solution**:
+1. Check Netlify environment variables are set correctly
+2. Ensure EMAIL_PASS is the Gmail app password (not regular password)
+3. Enable 2FA on Gmail account
+4. Regenerate app password if needed: https://myaccount.google.com/apppasswords
+
+### MongoDB Connection Issues
+**Problem**: "MongoDB disconnected" or "Failed to connect"
+**Solution**:
+1. Check MongoDB Atlas dashboard for cluster status
+2. Verify MONGO_URI in backend environment variables
+3. Ensure IP whitelist includes 0.0.0.0/0
+4. Check Render backend logs
+
+### Frontend not showing data
+**Problem**: "Data not loading in frontend"
+**Solution**:
+1. Check VITE_API_BASE_URL in Netlify environment variables
+2. Verify backend is running on Render
+3. Check browser console for CORS errors
+4. Clear cache and reload (Ctrl+Shift+R)
+
+### Smooth Scrolling Not Working
+**Problem**: Navigation scrolling is jerky
+**Solution**:
+1. Check browser compatibility (some older browsers don't support smooth scrolling)
+2. Ensure `scroll-behavior: smooth` is set in CSS
+3. Try adding `scroll-padding-top` for sticky navbar
+
+### Port Already in Use
+**Problem**: "Port 5000 is already in use"
+**Solution**:
+```bash
+taskkill /IM node.exe /F
 ```
 
 ---

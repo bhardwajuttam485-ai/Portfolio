@@ -1,6 +1,6 @@
 # Email Configuration for Production
 
-## Gmail Setup for Contact Form
+## Gmail Setup for Netlify Functions
 
 ### Step 1: Enable 2-Factor Authentication
 1. Go to your Google Account settings
@@ -15,11 +15,11 @@
 5. Click "Generate"
 6. Copy the 16-character password (ignore spaces)
 
-### Step 3: Set Environment Variables in Render
-In your Render dashboard for the backend service:
+### Step 3: Set Environment Variables in Netlify
+In your Netlify dashboard for the site:
 
-1. Go to your backend service
-2. Click on "Environment"
+1. Go to your site dashboard
+2. Click on "Site settings" > "Environment variables"
 3. Add these environment variables:
 
 ```
@@ -38,7 +38,7 @@ After deploying, test the contact form on your live site to ensure emails are be
 ### Common Issues:
 
 1. **"Email service not configured"**
-   - Check that all environment variables are set in Render
+   - Check that all environment variables are set in Netlify site settings
    - Ensure EMAIL_PASS is the app password, not regular password
 
 2. **"Authentication failed"**

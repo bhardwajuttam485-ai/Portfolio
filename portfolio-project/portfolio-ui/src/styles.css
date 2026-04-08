@@ -4,6 +4,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Account for sticky navbar */
 }
 
 body {
@@ -23,6 +24,9 @@ body {
   font-size: clamp(14px, 2vw, 16px);
   overflow-x: hidden;
   min-height: 100vh;
+  /* Improve scrolling performance */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 a {
