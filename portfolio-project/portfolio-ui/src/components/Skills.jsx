@@ -63,7 +63,7 @@ export default function Skills() {
       </div>
 
       <div className="skill-grid">
-        {skills.map((skill) => (
+        {skills.slice(0, 3).map((skill) => (
           <div className="skill-card glass" key={skill._id}>
             <div className="skill-icon">{skill.icon || "✦"}</div>
             <div>

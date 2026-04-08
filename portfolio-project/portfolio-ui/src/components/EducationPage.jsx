@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 
 export default function EducationPage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEducations = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/educations");
+        const res = await fetch(`${API_BASE_URL}/api/educations`);
 
         if (!res.ok) {
           throw new Error("Failed to fetch education");
@@ -17,8 +19,8 @@ export default function EducationPage() {
 
         const data = await res.json();
         setItems(data);
-      } catch {
-        // Error fetching education
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -39,6 +41,12 @@ export default function EducationPage() {
       <p className="details-page-subtitle">
         A complete academic overview including degrees, institutes, and learning background.
       </p>
+
+      {error && (
+        <div style={{ color: '#ff8a8a', textAlign: 'center', marginBottom: '24px' }}>
+          Unable to load education: {error}
+        </div>
+      )}
 
       <div className="details-list-grid">
         {items.map((item) => (
