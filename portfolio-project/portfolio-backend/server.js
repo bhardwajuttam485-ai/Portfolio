@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
+
+dotenv.config({ path: path.join(__dirname, ".env") });
+
 const connectDB = require("./config/db");
 
 const contactRoutes = require("./routes/contactRoutes");
@@ -10,8 +13,6 @@ const skillRoutes = require("./routes/skillRoutes");
 const experienceRoutes = require("./routes/experienceRoutes");
 const educationRoutes = require("./routes/educationRoutes");
 const socialLinkRoutes = require("./routes/socialLinkRoutes");
-
-dotenv.config({ path: path.join(__dirname, ".env") });
 
 if (!process.env.MONGO_URI) {
   console.error("Missing MONGO_URI in backend/.env");
