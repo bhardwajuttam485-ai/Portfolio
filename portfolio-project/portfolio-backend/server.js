@@ -25,7 +25,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:5174",
-  "https://portfolio-uttam.netlify.app",
+  "https://portfolio-ruddy-zeta-i7matm3uwh.vercel.app"
 ];
 
 app.use(
@@ -35,7 +35,7 @@ app.use(
 
       if (
         allowedOrigins.includes(origin) ||
-        origin.endsWith(".netlify.app")
+        origin.endsWith(".vercel.app")
       ) {
         return callback(null, true);
       }
